@@ -1,0 +1,19 @@
+syntax = "proto3";
+package services;
+import "google/api/annotations.proto";
+
+message ProdRequest{
+    int32 prod_id = 1; //传入的商品id
+}
+message ProdResponse{
+    int32 prod_stock = 1;
+}
+
+//get
+service ProdService {
+    rpc GetProdStock (ProdRequest) returns (ProdResponse){
+        option (google.api.http) = {
+            get: "/v1/prod/{prod_id}"   //这里指定了访问路径和方法，这个prod_id和ProdRequest里的prod_id必须对应
+        };
+    }
+}
